@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AngularJS To-Do List</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+</head>
+<body ng-app="ToDoApp">
+    <div ng-controller="ToDoController">
+        <h1>AngularJS To-Do List</h1>
+        <input type="text" ng-model="newTask" placeholder="Add a new task">
+        <button ng-click="addTask()">Add Task</button>
+        <ul>
+            <li ng-repeat="task in tasks">
+                <input type="checkbox" ng-model="task.completed"> {{ task.text }}
+            </li>
+        </ul>
+    </div>
+
+    <script>
+        // AngularJS-Modul erstellen
+        var app = angular.module('ToDoApp', []);
+
+        // Controller erstellen
+        app.controller('ToDoController', function($scope) {
+            // Anfangsliste von Aufgaben
+            $scope.tasks = [
+                { text: 'Buy groceries', completed: false },
+                { text: 'Walk the dog', completed: true },
+                { text: 'Clean the house', completed: false }
+            ];
+
+            // Funktion zum Hinzufügen einer neuen Aufgabe
+            $scope.addTask = function() {
+                if ($scope.newTask) {
+                    $scope.tasks.push({ text: $scope.newTask, completed: false });
+                    $scope.newTask = '';
+                }
+            };
+        });
+    </script>
+</body>
+</html>
